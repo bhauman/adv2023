@@ -21,12 +21,7 @@
 (defn hand-numeric-value [[a b & rs]] (+ (* 10 a) (or b 0)))
 
 (defn card-counts [hand]
-  (->> hand
-       (group-by identity)
-       vals
-       (map count)
-       (sort >)
-       vec))
+  (->> hand frequencies vals (sort >) vec))
 
 (defn hand-value [[hand bid]]
   (-> hand
@@ -37,10 +32,10 @@
 
 ;; part 1
 #_(->> input
-       (sort-by hand-value)
-       (map-indexed (fn [idx [_ bid]]
-                      (* (inc idx) bid)))
-       (apply +)) ;; => 248812215
+     (sort-by hand-value)
+     (map-indexed (fn [idx [_ bid]]
+                    (* (inc idx) bid)))
+     (apply +)) ;; => 248812215
 
 (defn joker-card->number [a]
   (if (= a "J") 1
