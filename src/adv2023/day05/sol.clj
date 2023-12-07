@@ -53,7 +53,6 @@
 
 (part1 input) ;; => 261668924
 
-
 (defn range-length [start end]
   (inc (- end start)))
 
@@ -130,6 +129,10 @@
      (map first)
      sort
      first) ;; => 24261545
+
+
+
+
 
 
 
