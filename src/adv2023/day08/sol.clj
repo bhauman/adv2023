@@ -47,13 +47,6 @@
        (filter #(= x %))
        first))
 
-#_(reduce lcm (map (fn [node]
-                   (->> input
-                        (location-seq node)
-                        (take-while #(not= \Z (last (str %))))
-                        count))
-                 start-nodes))
-
 (defn part2 [{:keys [directions locations]}]
   (let [dir-length (count directions)
         start-nodes (->> (keys locations)
