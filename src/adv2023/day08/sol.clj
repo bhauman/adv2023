@@ -10,10 +10,10 @@
 (defn parse [[a b & rs]]
   {:directions a
    :locations (as-> rs x
-              (string/join x)
-              (string/replace x "=" "")
-              (str "{" x "}")
-              (edn/read-string x))})
+                (string/join x)
+                (string/replace x "=" "")
+                (str "{" x "}")
+                (edn/read-string x))})
 
 (def input
   (->> (slurp "src/adv2023/day08/input.txt")
@@ -78,14 +78,16 @@
 ;; part 2 using lcm very short and sweet impl. Added this
 ;; after I saw that clojure.math.numeric-tower/lcm was available
 
-(->> (keys (:locations input))
-     (filter  #(= \A (last (str  %))))
-     (map (fn [node]
-            (->> input
-                 (location-seq node)
-                 (take-while #(not= \Z (last (str %))))
-                 count)))
-     (reduce lcm))
+;; This second solution to part 2
+
+#_(->> (keys (:locations input))
+       (filter  #(= \A (last (str  %))))
+       (map (fn [node]
+              (->> input
+                   (location-seq node)
+                   (take-while #(not= \Z (last (str %))))
+                   count)))
+       (reduce lcm)) ;; => 24035773251517
 
 
 
