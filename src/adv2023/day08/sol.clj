@@ -4,7 +4,8 @@
    [clojure.string :as string]
    [adv2023.grid :as grid]
    [clojure.set :as set]
-   [clojure.edn :as edn]))
+   [clojure.edn :as edn]
+   [clojure.math.numeric-tower :refer [lcm]]))
 
 (defn parse [[a b & rs]]
   {:directions a
@@ -46,6 +47,13 @@
        (filter #(= x %))
        first))
 
+#_(reduce lcm (map (fn [node]
+                   (->> input
+                        (location-seq node)
+                        (take-while #(not= \Z (last (str %))))
+                        count))
+                 start-nodes))
+
 (defn part2 [{:keys [directions locations]}]
   (let [dir-length (count directions)
         start-nodes (->> (keys locations)
@@ -66,6 +74,18 @@
 ;; => 24035773251517
 
 
+
+;; part 2 using lcm very short and sweet impl. Added this
+;; after I saw that clojure.math.numeric-tower/lcm was available
+
+(->> (keys (:locations input))
+     (filter  #(= \A (last (str  %))))
+     (map (fn [node]
+            (->> input
+                 (location-seq node)
+                 (take-while #(not= \Z (last (str %))))
+                 count)))
+     (reduce lcm))
 
 
 
