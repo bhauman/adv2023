@@ -1,4 +1,4 @@
-(ns adv2023.day8.sol
+(ns adv2023.day08.sol
   (:require
    [clojure.java.io :as io]
    [clojure.string :as string]
@@ -57,10 +57,10 @@
                                   (take-while #(not= \Z (last (str %))))
                                   count))
                            start-nodes)
-        factors (map #(/ % dir-length) cycle-lengths)]
+        factors (map #(/ % dir-length) cycle-lengths)] ;; could have called uniq here
     (assert (is-prime? dir-length))
     (assert (every? is-prime? factors))
-    (assert (apply not= factors))
+    (assert (apply not= factors))  
     (apply * dir-length factors)))
 
 ;;(part2 input)

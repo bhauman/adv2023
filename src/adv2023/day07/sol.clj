@@ -1,4 +1,4 @@
-(ns adv2023.day7.sol
+(ns adv2023.day07.sol
   (:require
    [clojure.java.io :as io]
    [clojure.string :as string]
