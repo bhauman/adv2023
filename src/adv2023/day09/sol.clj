@@ -10,7 +10,7 @@
                  (str "[" x "]")
                  (edn/read-string x)))))
 
-(defn diffs [l ]
+(defn diffs [l]
   (->> l (partition 2 1) (mapv #(apply - (reverse %)))))
 
 (defn next-num [num-seq]
@@ -33,7 +33,7 @@
 ;; part 2
 #_ (reduce + (map prev-num input)) ;; => 1057
 
-
-
+;; better answer for part 2 by just reversing the inputs 
+#_(reduce + (map next-num (map reverse input))) ; => 1057
 
 
