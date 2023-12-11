@@ -34,7 +34,7 @@
 (defn distance [[p1 p2]]
   (apply + (map abs (map - p1 p2))))
 
-;; part 2
+;; part 1
 #_(-> input
       expand-universe
       galaxies
