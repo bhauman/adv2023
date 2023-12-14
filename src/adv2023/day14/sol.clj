@@ -16,8 +16,10 @@
        (keep-indexed #(if (= \O %2) (inc %1)))
        (reduce +)))
 
-(defn tilt-row-right [r]
-  (->> r (partition-by #{\#}) (mapcat sort)))
+(def tilt-row-right
+  (memoize
+   (fn [r]
+     (->> r (partition-by #{\#}) (mapcat sort)))))
 
 ;; part 1
 #_(->> (grid/transpose input)
@@ -27,7 +29,7 @@
              reverse))
        (reduce +)) ;; => 108614
 
-(def tilt-row-left (comp reverse tilt-row-right reverse))
+(def tilt-row-left (memoize (comp reverse tilt-row-right reverse)))
 
 (defn tilt-north [rows]
   (->> rows grid/transpose (map tilt-row-left) grid/transpose))
@@ -39,7 +41,10 @@
 
 (defn tilt-east [rows] (map tilt-row-right rows))
 
-(def full-cycle (comp tilt-east tilt-south tilt-west tilt-north))
+(def full-cycle (memoize (comp (memoize tilt-east)
+                               (memoize tilt-south)
+                               (memoize tilt-west)
+                               (memoize tilt-north))))
 
 (defn score-grid [rows]
   (->> rows
@@ -48,7 +53,7 @@
        (reduce +)))
 
 (defn find-cycle-length
-  ([l] (potential-cycle (rest l) (rest (rest l))))
+  ([l] (find-cycle-length (rest l) (rest (rest l))))
   ([[t & ts :as tort]
     [h & hs :as hare]]
    (cond
@@ -67,18 +72,16 @@
                                                (shuffle (range 5))))))
 
 (defn part2 [input]
-  (let [cyc-len (->> (iterate cycler input)
-                     (drop 100)
-                     (take 1000)
-                     find-cycle-length)
-        score-idx (find-idx-to-score cyc-len 100000)]
-    (->> (iterate cycler input)
+  (let [cyc-len (->> (iterate full-cycle input)
+                     (take 500)
+                     find-cycle-length)]
+    (->> (iterate full-cycle input)
          (drop (- 1000000000
                   (* cyc-len (int (/ (- 1000000000 1000) cyc-len)))))
          first
          score-grid)))
 
-#_(part2 input) ;; => 96447
+#_(time (part2 input)) ;; => 96447
 
 
 
