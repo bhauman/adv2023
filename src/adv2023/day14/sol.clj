@@ -72,12 +72,11 @@
                                                (shuffle (range 5))))))
 
 (defn part2 [input]
-  (let [cyc-len (->> (iterate full-cycle input)
-                     (take 500)
-                     find-cycle-length)]
-    (->> (iterate full-cycle input)
+  (let [sample (take 500 (iterate full-cycle input))
+        cyc-len (find-cycle-length sample)]
+    (->> sample
          (drop (- 1000000000
-                  (* cyc-len (int (/ (- 1000000000 1000) cyc-len)))))
+                  (* cyc-len (int (/ (- 1000000000 100) cyc-len)))))
          first
          score-grid)))
 
