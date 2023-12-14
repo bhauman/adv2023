@@ -39,7 +39,7 @@
       expand-universe
       galaxies
       (combo/combinations 2)
-      (->>
+      #_(->>
        (map distance)
        (reduce +))) ;; => 10289334
 
