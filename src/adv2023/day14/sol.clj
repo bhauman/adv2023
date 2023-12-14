@@ -78,8 +78,7 @@
          first
          score-grid)))
 
-#_(with-out-str (time (part2 input)))
-;; => 96447
+#_(part2 input) ;; => 96447
 
 
 
