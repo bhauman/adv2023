@@ -59,11 +59,11 @@
        (reduce +)))
 
 ;; part 2
-#_(->> input
-       (map parse-inst)
-       (reduce map-inst {})
-       (map score-box)
-       (reduce +)) ; => 247933
+#_(time (->> input
+             (map parse-inst)
+             (reduce map-inst {})
+             (map score-box)
+             (reduce +))) ; => 247933
 
 
 

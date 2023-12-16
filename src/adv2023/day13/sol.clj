@@ -30,7 +30,7 @@
      (map (juxt find-vert-reflection find-horiz-reflection))
      (map (fn [[vert horiz]]
             (+ (or vert 0) ((fnil * 0) horiz 100))))
-     (reduce +))
+     (reduce +)) ;; => 37113
 
 (defn distance [a b]
   (count (filter identity (map #(not= %1 %2) a b))))
@@ -53,7 +53,7 @@
      (map (juxt find-potential-vert-reflection find-potential-horiz-reflection))
      (map (fn [[vert horiz]]
             (+ (or vert 0) ((fnil * 0) horiz 100))))
-     (reduce +))
+     (reduce +)) ;; => 30499
 
 
 
